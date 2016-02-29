@@ -1,22 +1,5 @@
-
-##### start edxapp defaults
-
-# variables common to the lms role, automatically loaded
-# when the role is included
 ---
-
-# These are variables that default to a localhost
-# setup and are meant to be overwritten for
-# different environments.
-#
-# Variables in all caps are environment specific
-# Lowercase variables are internal to the role
-#
-# Defaults specified here should not contain
-# any secrets or host identifying information.
-#
-# Variables set to "None" will be converted to None
-# when the edxapp config is written to disk.
+##### start edxapp defaults
 
 # Bucket used for xblock file storage
 EDXAPP_XBLOCK_FS_STORAGE_BUCKET: "None"
@@ -50,9 +33,6 @@ EDXAPP_EMAIL_HOST_PASSWORD: ''
 
 EDXAPP_LOG_LEVEL: 'INFO'
 
-EDXAPP_MEMCACHE: [ 'localhost:11211' ]
-EDXAPP_CACHE_COURSE_STRUCTURE_MEMCACHE: "{{ EDXAPP_MEMCACHE }}"
-EDXAPP_COMMENTS_SERVICE_URL:  'http://localhost:18080'
 EDXAPP_COMMENTS_SERVICE_KEY:  'password'
 
 EDXAPP_EDXAPP_SECRET_KEY: "DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION"
@@ -159,64 +139,16 @@ EDXAPP_STATIC_URL_BASE: "/static/"
 EDXAPP_GRADE_STORAGE_TYPE: 'localfs'
 EDXAPP_GRADE_BUCKET: 'edx-grades'
 EDXAPP_GRADE_ROOT_PATH: '/tmp/edx-s3/grades'
-# Credit card processor
-# These are the same defaults set in common.py
-EDXAPP_CC_PROCESSOR_NAME: "CyberSource2"
-EDXAPP_CC_PROCESSOR:
-  CyberSource:
-    SHARED_SECRET: ""
-    MERCHANT_ID: ""
-    SERIAL_NUMBER: ""
-    ORDERPAGE_VERSION: '7'
-    PURCHASE_ENDPOINT: ""
-  CyberSource2:
-    PURCHASE_ENDPOINT: ""
-    SECRET_KEY: ""
-    ACCESS_KEY: ""
-    PROFILE_ID: ""
-
-# does not affect verified students
-EDXAPP_PAID_COURSE_REGISTRATION_CURRENCY: ['usd', '$']
-
-# Configure paver tasks in edx-platform to skip Python/Ruby/Node installation
-EDXAPP_NO_PREREQ_INSTALL: 1
-
-# whether to setup the python codejail or not
-EDXAPP_PYTHON_SANDBOX: true
-# this next setting, if true, turns on actual sandbox enforcement.  If not true,
-# it puts the sandbox in 'complain' mode, for reporting but not enforcement
-EDXAPP_SANDBOX_ENFORCE: true
 
 # Supply authorized keys used for remote management via the user
 # role.
 EDXAPP_AUTOMATOR_NAME: automator
 EDXAPP_AUTOMATOR_AUTHORIZED_KEYS: []
-# These are the commands allowed by the automator role.
-# The --settings parameter must be set at the end so that
-# is caught by the glob.
-# Example: sudo -u www-data /edx/bin/python.edxapp /edx/bin/manage.edxapp lms migrate --settings=aws
-EDXAPP_AUTOMATOR_SUDO_CMDS:
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms migrate *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp cms migrate *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms syncdb *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp cms syncdb *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms seed_permissions_roles *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms set_staff *"
-- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms transfer_students *"
 
 EDXAPP_USE_GIT_IDENTITY: false
 # Paste the contents of the git identity
 # into this var
 EDXAPP_GIT_IDENTITY: !!null
-
-EDXAPP_UPDATE_STATIC_FILES_KEY: false
-# Set this to true if you want to install the private pip
-# requirements in the edx-platform repo.
-# This will use EDXAPP_GIT_IDENTITY, EDXAPP_USE_GIT_IDENTITY
-# must be set to true if EDXAPP_INSTALL_PRIVATE_REQUIREMENTS is
-# set to true
-
-EDXAPP_INSTALL_PRIVATE_REQUIREMENTS: false
 
 # List of additional python packages that should be installed into the
 # edxapp virtual environment.
@@ -238,9 +170,7 @@ EDXAPP_LMS_SEGMENT_KEY: "None"
 EDXAPP_EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST: []
 
 EDXAPP_EDX_API_KEY: "PUT_YOUR_API_KEY_HERE"
-# This is the default set in common.py
-EDXAPP_VERIFY_STUDENT:
-  DAYS_GOOD_FOR: 365
+
 EDXAPP_GOOGLE_ANALYTICS_LINKEDIN: ""
 EDXAPP_CONTENTSTORE_ADDITIONAL_OPTS: {}
 EDXAPP_BULK_EMAIL_EMAILS_PER_TASK: 500
@@ -258,26 +188,9 @@ EDXAPP_XML_FROM_GIT: false
 EDXAPP_XML_S3_BUCKET: !!null
 EDXAPP_XML_S3_KEY: !!null
 
-EDXAPP_NEWRELIC_LMS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-lms"
-EDXAPP_NEWRELIC_CMS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-cms"
-EDXAPP_NEWRELIC_WORKERS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-workers"
-
 EDXAPP_AWS_STORAGE_BUCKET_NAME: 'edxuploads'
 
-EDXAPP_ORA2_FILE_PREFIX: '{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}/ora2'
-EDXAPP_FILE_UPLOAD_STORAGE_BUCKET_NAME: '{{ EDXAPP_AWS_STORAGE_BUCKET_NAME }}'
 EDXAPP_FILE_UPLOAD_STORAGE_PREFIX: 'submissions_attachments'
-
-EDXAPP_CODE_JAIL_LIMITS:
-  # Limit the memory of the jailed process to something high but not
-  # infinite (512MiB in bytes)
-  VMEM: 536870912
-  # Time in seconds that the jailed process has to run.
-  REALTIME: 3
-  # Needs to be non-zero so that jailed code can use it as their temp directory.(1MiB in bytes)
-  FSIZE: 1048576
-  CPU: 1
-  PROXY: 0
 
 EDXAPP_VIRTUAL_UNIVERSITIES: []
 # Set the number of workers explicitly for lms and cms
@@ -335,31 +248,10 @@ EDXAPP_CELERY_WORKERS:
 EDXAPP_DEFAULT_CACHE_VERSION: "1"
 EDXAPP_OAUTH_ENFORCE_SECURE: True
 
-# Directory for edxapp application configuration files
-EDXAPP_CFG_DIR: "{{ COMMON_CFG_DIR }}/edxapp"
-EDXAPP_DEPRECATED_ADVANCED_COMPONENT_TYPES: []
-
-# Video Pipeline Settings
-EDXAPP_VIDEO_UPLOAD_PIPELINE:
-  BUCKET: ''
-  ROOT_PATH: ''
-
 EDXAPP_CORS_ORIGIN_WHITELIST: []
 EDXAPP_CORS_ORIGIN_ALLOW_ALL: false
 EDXAPP_CROSS_DOMAIN_CSRF_COOKIE_DOMAIN: ""
 EDXAPP_CROSS_DOMAIN_CSRF_COOKIE_NAME: ""
-
-# Video Beacon Settings
-CDN_VIDEO_URLS: {}
-PERFORMANCE_GRAPHITE_URL: 'SetPerformanceGraphiteHostName'
-
-# E-Commerce Related Settings
-EDXAPP_ECOMMERCE_PUBLIC_URL_ROOT: "http://localhost:8002"
-EDXAPP_ECOMMERCE_API_URL: "http://localhost:8002/api/v2"
-EDXAPP_ECOMMERCE_API_SIGNING_KEY: 'SET-ME-PLEASE'
-
-# Mailchimp Settings
-EDXAPP_MAILCHIMP_NEW_USER_LIST_ID: null
 
 # Social Sharing Related Settings
 EDXAPP_SOCIAL_SHARING_SETTINGS:
