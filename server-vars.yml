@@ -21,40 +21,15 @@
 # Bucket used for xblock file storage
 EDXAPP_XBLOCK_FS_STORAGE_BUCKET: "None"
 EDXAPP_XBLOCK_FS_STORAGE_PREFIX: "None"
-EDXAPP_DJFS:
-  type: 'osfs'
-  directory_root: '{{ edxapp_data_dir }}/django-pyfs/static/django-pyfs'
-  url_root : '/static/django-pyfs'
 
 EDXAPP_LMS_BASE: ""
 EDXAPP_PREVIEW_LMS_BASE: ""
 EDXAPP_CMS_BASE: ""
 
-EDXAPP_LMS_GUNICORN_EXTRA: ""
-EDXAPP_LMS_GUNICORN_EXTRA_CONF: ""
-
-EDXAPP_CMS_GUNICORN_EXTRA: ""
-EDXAPP_CMS_GUNICORN_EXTRA_CONF: ""
-
-# Set this to the maximum number
-# of requests for gunicorn for the lms and cms
-# gunicorn --max-requests <num>
-EDXAPP_LMS_MAX_REQ: !!null
-EDXAPP_CMS_MAX_REQ: !!null
-# 'None' will be written out as null in
-# the configuration on disk
 EDXAPP_AWS_ACCESS_KEY_ID:  "None"
 EDXAPP_AWS_SECRET_ACCESS_KEY:  "None"
-EDXAPP_DEFAULT_FILE_STORAGE:  "django.core.files.storage.FileSystemStorage"
-EDXAPP_XQUEUE_BASIC_AUTH: [ "{{ COMMON_HTPASSWD_USER }}", "{{ COMMON_HTPASSWD_PASS }}" ]
-EDXAPP_XQUEUE_DJANGO_AUTH:
-  username: 'lms'
-  password: 'password'
-EDXAPP_XQUEUE_URL: 'http://localhost:18040'
 
-EDXAPP_MONGO_HOSTS: ['localhost']
 EDXAPP_MONGO_PASSWORD: 'password'
-EDXAPP_MONGO_PORT: 27017
 EDXAPP_MONGO_USER: 'edxapp'
 EDXAPP_MONGO_DB_NAME: 'edxapp'
 EDXAPP_MONGO_USE_SSL: False
@@ -65,24 +40,6 @@ EDXAPP_MYSQL_USER_ADMIN: 'root'
 EDXAPP_MYSQL_PASSWORD: 'password'
 EDXAPP_MYSQL_PASSWORD_READ_ONLY: 'password'
 EDXAPP_MYSQL_PASSWORD_ADMIN: 'password'
-EDXAPP_MYSQL_REPLICA_DB_NAME: "{{ EDXAPP_MYSQL_DB_NAME }}"
-EDXAPP_MYSQL_REPLICA_USER: "{{ EDXAPP_MYSQL_USER }}"
-EDXAPP_MYSQL_REPLICA_PASSWORD: "{{ EDXAPP_MYSQL_PASSWORD }}"
-EDXAPP_MYSQL_REPLICA_HOST: "{{ EDXAPP_MYSQL_HOST }}"
-EDXAPP_MYSQL_REPLICA_PORT: "{{ EDXAPP_MYSQL_PORT }}"
-
-EDXAPP_MYSQL_HOST: 'localhost'
-EDXAPP_MYSQL_PORT: '3306'
-
-# list of dictionaries of the format
-# { 'host': 'hostname', 'port': 'portnumber', 'otherconfigsuchas use_ssl': 'True' }
-# http://elasticsearch-py.readthedocs.org/en/master/api.html#elasticsearch
-EDXAPP_ELASTIC_SEARCH_CONFIG:
-    - host: "localhost"
-      port: 9200
-
-EDXAPP_LMS_ENV: 'lms.envs.aws'
-EDXAPP_CMS_ENV: 'cms.envs.aws'
 
 EDXAPP_EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
 EDXAPP_EMAIL_HOST: 'localhost'
@@ -100,9 +57,6 @@ EDXAPP_COMMENTS_SERVICE_KEY:  'password'
 
 EDXAPP_EDXAPP_SECRET_KEY: "DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION"
 
-EDXAPP_ANALYTICS_API_KEY:  ""
-EDXAPP_LTI_USER_EMAIL_DOMAIN: "lti.example.com"
-# 900s, or 15 mins
 EDXAPP_LTI_AGGREGATE_SCORE_PASSBACK_DELAY: 900
 EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
 EDXAPP_YOUTUBE_API_KEY: "PUT_YOUR_API_KEY_HERE"
@@ -113,11 +67,6 @@ EDXAPP_CELERY_USER: 'celery'
 EDXAPP_CELERY_PASSWORD: 'celery'
 EDXAPP_CELERY_BROKER_VHOST: ""
 
-EDXAPP_VIDEO_CDN_URLS:
-  EXAMPLE_COUNTRY_CODE: "http://example.com/edx/video?s3_url="
-
-EDXAPP_CREDIT_HELP_LINK_URL: ""
-
 EDXAPP_PLATFORM_NAME: 'Your Platform Name Here'
 EDXAPP_STUDIO_NAME: 'Studio'
 EDXAPP_STUDIO_SHORT_NAME: 'Studio'
@@ -126,56 +75,10 @@ EDXAPP_CAS_SERVER_URL: ""
 EDXAPP_CAS_EXTRA_LOGIN_PARAMS: ""
 EDXAPP_CAS_ATTRIBUTE_CALLBACK: ""
 EDXAPP_CAS_ATTRIBUTE_PACKAGE: ""
-# Enable an end-point that creates a user and logs them in
-# Used for performance testing
-EDXAPP_ENABLE_AUTO_AUTH: false
 # Settings for enabling and configuring third party authorization
 EDXAPP_ENABLE_THIRD_PARTY_AUTH: false
 
 EDXAPP_ENABLE_EDXNOTES: false
-
-EDXAPP_ENABLE_CREDIT_ELIGIBILITY: false
-EDXAPP_ENABLE_CREDIT_API: false
-
-EDXAPP_MODULESTORE_MAPPINGS:
-    'preview\.': 'draft-preferred'
-
-EDXAPP_GIT_REPO_DIR: '/edx/var/edxapp/course_repos'
-EDXAPP_GIT_REPO_EXPORT_DIR: '/edx/var/edxapp/export_course_repos'
-
-EDXAPP_ONLOAD_BEACON_SAMPLE_RATE: 0.0
-
-EDXAPP_TENDER_DOMAIN: "None"
-EDXAPP_TENDER_SUBDOMAIN: "None"
-
-EDXAPP_FINANCIAL_REPORTS:
-  BUCKET: !!null
-  ROOT_PATH: "sandbox"
-  STORAGE_TYPE: "localfs"
-
-#Only address should have newlines
-EDXAPP_PDF_RECEIPT_BILLING_ADDRESS: |
-  Fake Billing Services
-  123 Fake St.
-  Notaplaceshire, XX 00000
-
-EDXAPP_PDF_RECEIPT_DISCLAIMER_TEXT: >
-  THIS IS A DISCLAIMER ABOUT OUR STUFF. ALL OUR CONTENT ARE BELONG TO US.
-  YOU HAVE NO CHANCE TO SURVIVE MAKE YOUR TIME.
-
-EDXAPP_PDF_RECEIPT_FOOTER_TEXT: >
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Suspendisse pretium odio nec sodales dictum. Vestibulum eget
-  sollicitudin lorem. In mattis accumsan risus ac ultrices.
-
-EDXAPP_PDF_RECEIPT_TERMS_AND_CONDITIONS: >
-  Here are some fake terms and conditions that say when payment is due and stuff.
-  For more info, see www.fakeschoolX.org/terms-and-conditions
-
-EDXAPP_PDF_RECEIPT_TAX_ID: "00-0000000"
-EDXAPP_PDF_RECEIPT_TAX_ID_LABEL: "fake Tax ID"
-EDXAPP_PDF_RECEIPT_COBRAND_LOGO_PATH: ""
-EDXAPP_PDF_RECEIPT_LOGO_PATH: ""
 
 EDXAPP_FEATURES:
   AUTH_USE_OPENID_PROVIDER: true
@@ -208,30 +111,13 @@ EDXAPP_BOOK_URL: ""
 EDXAPP_SITE_NAME: 'localhost'
 EDXAPP_LMS_SITE_NAME: "{{ EDXAPP_SITE_NAME }}"
 EDXAPP_CMS_SITE_NAME: 'localhost'
-EDXAPP_MEDIA_URL:  "/media"
-EDXAPP_ANALYTICS_SERVER_URL:  ""
 EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
-EDXAPP_CELERY_BROKER_HOSTNAME: ""
-EDXAPP_LOGGING_ENV:  'sandbox'
-
-EDXAPP_SYSLOG_SERVER: ""
-EDXAPP_RABBIT_HOSTNAME: 'localhost'
 
 EDXAPP_LMS_NGINX_PORT: 18000
 EDXAPP_LMS_SSL_NGINX_PORT: 48000
-
 EDXAPP_LMS_PREVIEW_NGINX_PORT: 18020
 EDXAPP_CMS_NGINX_PORT: 18010
 EDXAPP_CMS_SSL_NGINX_PORT: 48010
-
-# NGINX Rate limiting related vars
-EDXAPP_ENABLE_RATE_LIMITING: false
-EDXAPP_COURSE_REQUEST_RATE: '5r/s'
-EDXAPP_COURSE_REQUEST_BURST_RATE: 10
-
-EDXAPP_LANG: 'en_US.UTF-8'
-EDXAPP_LANGUAGE_CODE : 'en'
-EDXAPP_TIME_ZONE: 'America/New_York'
 
 EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
 EDXAPP_CONTACT_EMAIL: 'info@example.com'
@@ -250,8 +136,6 @@ EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/YourPlatformFacebookA
 EDXAPP_FACEBOOK_APP_ID: "FACEBOOK_APP_ID"
 EDXAPP_FACEBOOK_APP_SECRET: "FACEBOOK_APP_SECRET"
 EDXAPP_FACEBOOK_API_VERSION: "v2.1"
-
-
 
 EDXAPP_SOCIAL_MEDIA_FOOTER_URLS: {}
 EDXAPP_MOBILE_STORE_URLS: {}
@@ -550,56 +434,6 @@ EDXAPP_SESSION_SAVE_EVERY_REQUEST: false
 
 EDXAPP_SESSION_COOKIE_SECURE: false
 
-#-------- Everything below this line is internal to the role ------------
-
-#Use YAML references (& and *) and hash merge <<: to factor out shared settings
-#see http://atechie.net/2009/07/merging-hashes-in-yaml-conf-files/
-
-edxapp_data_dir: "{{ COMMON_DATA_DIR }}/edxapp"
-edxapp_app_dir: "{{ COMMON_APP_DIR }}/edxapp"
-edxapp_log_dir: "{{ COMMON_LOG_DIR }}/edxapp"
-edxapp_venvs_dir: "{{ edxapp_app_dir }}/venvs"
-edxapp_venv_dir: "{{ edxapp_venvs_dir }}/edxapp"
-edxapp_venv_bin: "{{ edxapp_venv_dir }}/bin"
-edxapp_rbenv_dir: "{{ edxapp_app_dir }}"
-edxapp_rbenv_root: "{{ edxapp_rbenv_dir }}/.rbenv"
-edxapp_rbenv_shims: "{{ edxapp_rbenv_root }}/shims"
-edxapp_rbenv_bin: "{{ edxapp_rbenv_root }}/bin"
-edxapp_gem_root: "{{ edxapp_rbenv_dir }}/.gem"
-edxapp_gem_bin: "{{ edxapp_gem_root }}/bin"
-edxapp_node_bin: "{{ edxapp_code_dir }}/node_modules/.bin"
-edxapp_user: edxapp
-edxapp_deploy_path: "{{ edxapp_venv_bin }}:{{ edxapp_code_dir }}/bin:{{ edxapp_rbenv_bin }}:{{ edxapp_rbenv_shims }}:{{ edxapp_gem_bin }}:{{ edxapp_node_bin }}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-edxapp_staticfile_dir: "{{ edxapp_data_dir }}/staticfiles"
-edxapp_media_dir: "{{ edxapp_data_dir }}/media"
-edxapp_course_static_dir: "{{ edxapp_data_dir }}/course_static"
-edxapp_course_data_dir: "{{ edxapp_data_dir }}/data"
-edxapp_upload_dir: "{{ edxapp_data_dir }}/uploads"
-edxapp_theme_dir: "{{ edxapp_data_dir }}/themes"
-edxapp_git_identity: "{{ edxapp_app_dir }}/edxapp-git-identity"
-edxapp_git_ssh: "/tmp/edxapp_git_ssh.sh"
-
-# TODO: This can be removed once VPC-122 is resolved
-edxapp_legacy_course_data_dir: "{{ edxapp_app_dir }}/data"
-
-edxapp_workers: "{{ EDXAPP_CELERY_WORKERS }}"
-
-# setup for python codejail
-edxapp_sandbox_venv_dir:  '{{ edxapp_venvs_dir }}/edxapp-sandbox'
-edxapp_sandbox_user: 'sandbox'  # I think something about the codejail requires hardcoding this to sandbox:sandbox
-
-# apparmor command
-edxapp_aa_command: "{% if EDXAPP_SANDBOX_ENFORCE %}aa-enforce{% else %}aa-complain{% endif %}"
-
-# TODO: old style variable syntax is necessary
-# for lists and dictionaries
-edxapp_helper_scripts:
-    - edxapp-migrate
-    - edxapp-runserver
-    - edxapp-syncdb
-    - edxapp-update-assets
-    - edxapp-shell
-
 ##### end edxapp defaults
 
 ##### start edxlocal defaults
@@ -666,8 +500,8 @@ NGINX_REDIRECT_TO_HTTPS: False
 
 # Set global htpasswd credentials
 COMMON_ENABLE_BASIC_AUTH: False
-COMMON_HTPASSWD_USER: edx 
-COMMON_HTPASSWD_PASS: edx 
+#COMMON_HTPASSWD_USER: edx 
+#COMMON_HTPASSWD_PASS: edx 
 
 
 # Turn on syncing logs on rotation for edx
