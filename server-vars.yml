@@ -1,0 +1,701 @@
+
+##### start edxapp defaults
+
+# variables common to the lms role, automatically loaded
+# when the role is included
+---
+
+# These are variables that default to a localhost
+# setup and are meant to be overwritten for
+# different environments.
+#
+# Variables in all caps are environment specific
+# Lowercase variables are internal to the role
+#
+# Defaults specified here should not contain
+# any secrets or host identifying information.
+#
+# Variables set to "None" will be converted to None
+# when the edxapp config is written to disk.
+
+# Bucket used for xblock file storage
+EDXAPP_XBLOCK_FS_STORAGE_BUCKET: "None"
+EDXAPP_XBLOCK_FS_STORAGE_PREFIX: "None"
+EDXAPP_DJFS:
+  type: 'osfs'
+  directory_root: '{{ edxapp_data_dir }}/django-pyfs/static/django-pyfs'
+  url_root : '/static/django-pyfs'
+
+EDXAPP_LMS_BASE: ""
+EDXAPP_PREVIEW_LMS_BASE: ""
+EDXAPP_CMS_BASE: ""
+
+EDXAPP_LMS_GUNICORN_EXTRA: ""
+EDXAPP_LMS_GUNICORN_EXTRA_CONF: ""
+
+EDXAPP_CMS_GUNICORN_EXTRA: ""
+EDXAPP_CMS_GUNICORN_EXTRA_CONF: ""
+
+# Set this to the maximum number
+# of requests for gunicorn for the lms and cms
+# gunicorn --max-requests <num>
+EDXAPP_LMS_MAX_REQ: !!null
+EDXAPP_CMS_MAX_REQ: !!null
+# 'None' will be written out as null in
+# the configuration on disk
+EDXAPP_AWS_ACCESS_KEY_ID:  "None"
+EDXAPP_AWS_SECRET_ACCESS_KEY:  "None"
+EDXAPP_DEFAULT_FILE_STORAGE:  "django.core.files.storage.FileSystemStorage"
+EDXAPP_XQUEUE_BASIC_AUTH: [ "{{ COMMON_HTPASSWD_USER }}", "{{ COMMON_HTPASSWD_PASS }}" ]
+EDXAPP_XQUEUE_DJANGO_AUTH:
+  username: 'lms'
+  password: 'password'
+EDXAPP_XQUEUE_URL: 'http://localhost:18040'
+
+EDXAPP_MONGO_HOSTS: ['localhost']
+EDXAPP_MONGO_PASSWORD: 'password'
+EDXAPP_MONGO_PORT: 27017
+EDXAPP_MONGO_USER: 'edxapp'
+EDXAPP_MONGO_DB_NAME: 'edxapp'
+EDXAPP_MONGO_USE_SSL: False
+
+EDXAPP_MYSQL_DB_NAME: 'edxapp'
+EDXAPP_MYSQL_USER: 'edxapp001'
+EDXAPP_MYSQL_USER_ADMIN: 'root'
+EDXAPP_MYSQL_PASSWORD: 'password'
+EDXAPP_MYSQL_PASSWORD_READ_ONLY: 'password'
+EDXAPP_MYSQL_PASSWORD_ADMIN: 'password'
+EDXAPP_MYSQL_REPLICA_DB_NAME: "{{ EDXAPP_MYSQL_DB_NAME }}"
+EDXAPP_MYSQL_REPLICA_USER: "{{ EDXAPP_MYSQL_USER }}"
+EDXAPP_MYSQL_REPLICA_PASSWORD: "{{ EDXAPP_MYSQL_PASSWORD }}"
+EDXAPP_MYSQL_REPLICA_HOST: "{{ EDXAPP_MYSQL_HOST }}"
+EDXAPP_MYSQL_REPLICA_PORT: "{{ EDXAPP_MYSQL_PORT }}"
+
+EDXAPP_MYSQL_HOST: 'localhost'
+EDXAPP_MYSQL_PORT: '3306'
+
+# list of dictionaries of the format
+# { 'host': 'hostname', 'port': 'portnumber', 'otherconfigsuchas use_ssl': 'True' }
+# http://elasticsearch-py.readthedocs.org/en/master/api.html#elasticsearch
+EDXAPP_ELASTIC_SEARCH_CONFIG:
+    - host: "localhost"
+      port: 9200
+
+EDXAPP_LMS_ENV: 'lms.envs.aws'
+EDXAPP_CMS_ENV: 'cms.envs.aws'
+
+EDXAPP_EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+EDXAPP_EMAIL_HOST: 'localhost'
+EDXAPP_EMAIL_PORT: 25
+EDXAPP_EMAIL_USE_TLS: False
+EDXAPP_EMAIL_HOST_USER: ''
+EDXAPP_EMAIL_HOST_PASSWORD: ''
+
+EDXAPP_LOG_LEVEL: 'INFO'
+
+EDXAPP_MEMCACHE: [ 'localhost:11211' ]
+EDXAPP_CACHE_COURSE_STRUCTURE_MEMCACHE: "{{ EDXAPP_MEMCACHE }}"
+EDXAPP_COMMENTS_SERVICE_URL:  'http://localhost:18080'
+EDXAPP_COMMENTS_SERVICE_KEY:  'password'
+
+EDXAPP_EDXAPP_SECRET_KEY: "DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION"
+
+EDXAPP_ANALYTICS_API_KEY:  ""
+EDXAPP_LTI_USER_EMAIL_DOMAIN: "lti.example.com"
+# 900s, or 15 mins
+EDXAPP_LTI_AGGREGATE_SCORE_PASSBACK_DELAY: 900
+EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
+EDXAPP_YOUTUBE_API_KEY: "PUT_YOUR_API_KEY_HERE"
+EDXAPP_ZENDESK_USER: ""
+EDXAPP_ZENDESK_URL: ""
+EDXAPP_ZENDESK_API_KEY: ""
+EDXAPP_CELERY_USER: 'celery'
+EDXAPP_CELERY_PASSWORD: 'celery'
+EDXAPP_CELERY_BROKER_VHOST: ""
+
+EDXAPP_VIDEO_CDN_URLS:
+  EXAMPLE_COUNTRY_CODE: "http://example.com/edx/video?s3_url="
+
+EDXAPP_CREDIT_HELP_LINK_URL: ""
+
+EDXAPP_PLATFORM_NAME: 'Your Platform Name Here'
+EDXAPP_STUDIO_NAME: 'Studio'
+EDXAPP_STUDIO_SHORT_NAME: 'Studio'
+
+EDXAPP_CAS_SERVER_URL: ""
+EDXAPP_CAS_EXTRA_LOGIN_PARAMS: ""
+EDXAPP_CAS_ATTRIBUTE_CALLBACK: ""
+EDXAPP_CAS_ATTRIBUTE_PACKAGE: ""
+# Enable an end-point that creates a user and logs them in
+# Used for performance testing
+EDXAPP_ENABLE_AUTO_AUTH: false
+# Settings for enabling and configuring third party authorization
+EDXAPP_ENABLE_THIRD_PARTY_AUTH: false
+
+EDXAPP_ENABLE_EDXNOTES: false
+
+EDXAPP_ENABLE_CREDIT_ELIGIBILITY: false
+EDXAPP_ENABLE_CREDIT_API: false
+
+EDXAPP_MODULESTORE_MAPPINGS:
+    'preview\.': 'draft-preferred'
+
+EDXAPP_GIT_REPO_DIR: '/edx/var/edxapp/course_repos'
+EDXAPP_GIT_REPO_EXPORT_DIR: '/edx/var/edxapp/export_course_repos'
+
+EDXAPP_ONLOAD_BEACON_SAMPLE_RATE: 0.0
+
+EDXAPP_TENDER_DOMAIN: "None"
+EDXAPP_TENDER_SUBDOMAIN: "None"
+
+EDXAPP_FINANCIAL_REPORTS:
+  BUCKET: !!null
+  ROOT_PATH: "sandbox"
+  STORAGE_TYPE: "localfs"
+
+#Only address should have newlines
+EDXAPP_PDF_RECEIPT_BILLING_ADDRESS: |
+  Fake Billing Services
+  123 Fake St.
+  Notaplaceshire, XX 00000
+
+EDXAPP_PDF_RECEIPT_DISCLAIMER_TEXT: >
+  THIS IS A DISCLAIMER ABOUT OUR STUFF. ALL OUR CONTENT ARE BELONG TO US.
+  YOU HAVE NO CHANCE TO SURVIVE MAKE YOUR TIME.
+
+EDXAPP_PDF_RECEIPT_FOOTER_TEXT: >
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Suspendisse pretium odio nec sodales dictum. Vestibulum eget
+  sollicitudin lorem. In mattis accumsan risus ac ultrices.
+
+EDXAPP_PDF_RECEIPT_TERMS_AND_CONDITIONS: >
+  Here are some fake terms and conditions that say when payment is due and stuff.
+  For more info, see www.fakeschoolX.org/terms-and-conditions
+
+EDXAPP_PDF_RECEIPT_TAX_ID: "00-0000000"
+EDXAPP_PDF_RECEIPT_TAX_ID_LABEL: "fake Tax ID"
+EDXAPP_PDF_RECEIPT_COBRAND_LOGO_PATH: ""
+EDXAPP_PDF_RECEIPT_LOGO_PATH: ""
+
+EDXAPP_FEATURES:
+  AUTH_USE_OPENID_PROVIDER: true
+  CERTIFICATES_ENABLED: true
+  ENABLE_DISCUSSION_SERVICE: true
+  ENABLE_INSTRUCTOR_ANALYTICS: false
+  PREVIEW_LMS_BASE: "{{ EDXAPP_PREVIEW_LMS_BASE }}"
+  ENABLE_S3_GRADE_DOWNLOADS: true
+  USE_CUSTOM_THEME: "{{ edxapp_use_custom_theme }}"
+  ENABLE_MKTG_SITE: "{{ EDXAPP_ENABLE_MKTG_SITE }}"
+  AUTOMATIC_AUTH_FOR_TESTING: "{{ EDXAPP_ENABLE_AUTO_AUTH }}"
+  ENABLE_THIRD_PARTY_AUTH: "{{ EDXAPP_ENABLE_THIRD_PARTY_AUTH }}"
+  ENABLE_VIDEO_UPLOAD_PIPELINE: false
+  ENABLE_DISCUSSION_HOME_PANEL: true
+  ENABLE_COMBINED_LOGIN_REGISTRATION: true
+  ENABLE_CORS_HEADERS: false
+  ENABLE_CROSS_DOMAIN_CSRF_COOKIE: false
+  ENABLE_COUNTRY_ACCESS: false
+  ENABLE_VIDEO_BEACON: false
+  ENABLE_ONLOAD_BEACON: false
+  ENABLE_EDXNOTES: "{{ EDXAPP_ENABLE_EDXNOTES }}"
+  ENABLE_CREDIT_API: "{{ EDXAPP_ENABLE_CREDIT_API }}"
+  ENABLE_CREDIT_ELIGIBILITY: "{{ EDXAPP_ENABLE_CREDIT_ELIGIBILITY }}"
+  ENABLE_SPECIAL_EXAMS: false
+
+EDXAPP_BOOK_URL: ""
+# This needs to be set to localhost
+# if xqueue is run on the same server
+# as the lms (it's sent in the request)
+EDXAPP_SITE_NAME: 'localhost'
+EDXAPP_LMS_SITE_NAME: "{{ EDXAPP_SITE_NAME }}"
+EDXAPP_CMS_SITE_NAME: 'localhost'
+EDXAPP_MEDIA_URL:  "/media"
+EDXAPP_ANALYTICS_SERVER_URL:  ""
+EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
+EDXAPP_CELERY_BROKER_HOSTNAME: ""
+EDXAPP_LOGGING_ENV:  'sandbox'
+
+EDXAPP_SYSLOG_SERVER: ""
+EDXAPP_RABBIT_HOSTNAME: 'localhost'
+
+EDXAPP_LMS_NGINX_PORT: 18000
+EDXAPP_LMS_SSL_NGINX_PORT: 48000
+
+EDXAPP_LMS_PREVIEW_NGINX_PORT: 18020
+EDXAPP_CMS_NGINX_PORT: 18010
+EDXAPP_CMS_SSL_NGINX_PORT: 48010
+
+# NGINX Rate limiting related vars
+EDXAPP_ENABLE_RATE_LIMITING: false
+EDXAPP_COURSE_REQUEST_RATE: '5r/s'
+EDXAPP_COURSE_REQUEST_BURST_RATE: 10
+
+EDXAPP_LANG: 'en_US.UTF-8'
+EDXAPP_LANGUAGE_CODE : 'en'
+EDXAPP_TIME_ZONE: 'America/New_York'
+
+EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
+EDXAPP_CONTACT_EMAIL: 'info@example.com'
+EDXAPP_BUGS_EMAIL: 'bugs@example.com'
+EDXAPP_DEFAULT_FROM_EMAIL: 'registration@example.com'
+EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@example.com'
+EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@example.com'
+EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@example.com'
+EDXAPP_BULK_EMAIL_LOG_SENT_EMAILS: false
+EDXAPP_UNIVERSITY_EMAIL: 'university@example.com'
+EDXAPP_PRESS_EMAIL: 'press@example.com'
+EDXAPP_JWT_EXPIRATION: 30  # Number of seconds until expiration
+
+EDXAPP_PLATFORM_TWITTER_ACCOUNT: '@YourPlatformTwitterAccount'
+EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/YourPlatformFacebookAccount'
+EDXAPP_FACEBOOK_APP_ID: "FACEBOOK_APP_ID"
+EDXAPP_FACEBOOK_APP_SECRET: "FACEBOOK_APP_SECRET"
+EDXAPP_FACEBOOK_API_VERSION: "v2.1"
+
+
+
+EDXAPP_SOCIAL_MEDIA_FOOTER_URLS: {}
+EDXAPP_MOBILE_STORE_URLS: {}
+EDXAPP_FOOTER_ORGANIZATION_IMAGE: "themes/edx.org/images/logo.png"
+
+EDXAPP_ENV_EXTRA: {}
+EDXAPP_AUTH_EXTRA: {}
+EDXAPP_LMS_AUTH_EXTRA: "{{ EDXAPP_AUTH_EXTRA }}"
+EDXAPP_CMS_AUTH_EXTRA: "{{ EDXAPP_AUTH_EXTRA }}"
+EDXAPP_ENABLE_MKTG_SITE: false
+EDXAPP_MKTG_URL_LINK_MAP: {}
+EDXAPP_MKTG_URLS: {}
+EDXAPP_SUPPORT_SITE_LINK: ''
+EDXAPP_EDXMKTG_USER_INFO_COOKIE_NAME: "edx-user-info"
+# Set this sets the url for static files
+# Override this var to use a CDN
+# Example: xxxxx.cloudfront.net/static/
+EDXAPP_STATIC_URL_BASE: "/static/"
+
+# Settings for Grade downloads
+EDXAPP_GRADE_STORAGE_TYPE: 'localfs'
+EDXAPP_GRADE_BUCKET: 'edx-grades'
+EDXAPP_GRADE_ROOT_PATH: '/tmp/edx-s3/grades'
+# Credit card processor
+# These are the same defaults set in common.py
+EDXAPP_CC_PROCESSOR_NAME: "CyberSource2"
+EDXAPP_CC_PROCESSOR:
+  CyberSource:
+    SHARED_SECRET: ""
+    MERCHANT_ID: ""
+    SERIAL_NUMBER: ""
+    ORDERPAGE_VERSION: '7'
+    PURCHASE_ENDPOINT: ""
+  CyberSource2:
+    PURCHASE_ENDPOINT: ""
+    SECRET_KEY: ""
+    ACCESS_KEY: ""
+    PROFILE_ID: ""
+
+# does not affect verified students
+EDXAPP_PAID_COURSE_REGISTRATION_CURRENCY: ['usd', '$']
+
+# Configure paver tasks in edx-platform to skip Python/Ruby/Node installation
+EDXAPP_NO_PREREQ_INSTALL: 1
+
+# whether to setup the python codejail or not
+EDXAPP_PYTHON_SANDBOX: true
+# this next setting, if true, turns on actual sandbox enforcement.  If not true,
+# it puts the sandbox in 'complain' mode, for reporting but not enforcement
+EDXAPP_SANDBOX_ENFORCE: true
+
+# Supply authorized keys used for remote management via the user
+# role.
+EDXAPP_AUTOMATOR_NAME: automator
+EDXAPP_AUTOMATOR_AUTHORIZED_KEYS: []
+# These are the commands allowed by the automator role.
+# The --settings parameter must be set at the end so that
+# is caught by the glob.
+# Example: sudo -u www-data /edx/bin/python.edxapp /edx/bin/manage.edxapp lms migrate --settings=aws
+EDXAPP_AUTOMATOR_SUDO_CMDS:
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms migrate *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp cms migrate *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms syncdb *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp cms syncdb *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms seed_permissions_roles *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms set_staff *"
+- "ALL=({{ common_web_user }})  NOPASSWD:SETENV:{{ COMMON_BIN_DIR }}/python.edxapp {{ COMMON_BIN_DIR }}/manage.edxapp lms transfer_students *"
+
+EDXAPP_USE_GIT_IDENTITY: false
+# Paste the contents of the git identity
+# into this var
+EDXAPP_GIT_IDENTITY: !!null
+
+EDXAPP_UPDATE_STATIC_FILES_KEY: false
+# Set this to true if you want to install the private pip
+# requirements in the edx-platform repo.
+# This will use EDXAPP_GIT_IDENTITY, EDXAPP_USE_GIT_IDENTITY
+# must be set to true if EDXAPP_INSTALL_PRIVATE_REQUIREMENTS is
+# set to true
+
+EDXAPP_INSTALL_PRIVATE_REQUIREMENTS: false
+
+# List of additional python packages that should be installed into the
+# edxapp virtual environment.
+# `name` (required), `version` (optional), and `extra_args` (optional)
+# are supported and correspond to the options of ansible's pip module.
+# Example:
+# EDXAPP_EXTRA_REQUIREMENTS:
+#   - name: mypackage
+#     version: 1.0.1
+#   - name: git+https://git.myproject.org/MyProject#egg=MyProject
+EDXAPP_EXTRA_REQUIREMENTS: []
+
+EDXAPP_GOOGLE_ANALYTICS_ACCOUNT: "None"
+
+EDXAPP_OPTIMIZELY_PROJECT_ID: "None"
+EDXAPP_TRACKING_SEGMENTIO_WEBHOOK_SECRET: ""
+EDXAPP_CMS_SEGMENT_KEY: "None"
+EDXAPP_LMS_SEGMENT_KEY: "None"
+EDXAPP_EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST: []
+
+EDXAPP_EDX_API_KEY: "PUT_YOUR_API_KEY_HERE"
+# This is the default set in common.py
+EDXAPP_VERIFY_STUDENT:
+  DAYS_GOOD_FOR: 365
+EDXAPP_GOOGLE_ANALYTICS_LINKEDIN: ""
+EDXAPP_CONTENTSTORE_ADDITIONAL_OPTS: {}
+EDXAPP_BULK_EMAIL_EMAILS_PER_TASK: 500
+# If using microsites this should point to the microsite repo
+EDXAPP_MICROSITE_ROOT_DIR: "{{ edxapp_app_dir }}/edx-microsite"
+# this dictionary defines what microsites are configured
+EDXAPP_MICROSITE_CONFIGURATION: {}
+# Instructor code that will not be run in the code sandbox
+EDXAPP_COURSES_WITH_UNSAFE_CODE: []
+EDXAPP_SESSION_COOKIE_DOMAIN: ""
+EDXAPP_SESSION_COOKIE_NAME: "sessionid"
+
+# XML Course related flags
+EDXAPP_XML_FROM_GIT: false
+EDXAPP_XML_S3_BUCKET: !!null
+EDXAPP_XML_S3_KEY: !!null
+
+EDXAPP_NEWRELIC_LMS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-lms"
+EDXAPP_NEWRELIC_CMS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-cms"
+EDXAPP_NEWRELIC_WORKERS_APPNAME: "{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}-edxapp-workers"
+
+EDXAPP_AWS_STORAGE_BUCKET_NAME: 'edxuploads'
+
+EDXAPP_ORA2_FILE_PREFIX: '{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}/ora2'
+EDXAPP_FILE_UPLOAD_STORAGE_BUCKET_NAME: '{{ EDXAPP_AWS_STORAGE_BUCKET_NAME }}'
+EDXAPP_FILE_UPLOAD_STORAGE_PREFIX: 'submissions_attachments'
+
+EDXAPP_CODE_JAIL_LIMITS:
+  # Limit the memory of the jailed process to something high but not
+  # infinite (512MiB in bytes)
+  VMEM: 536870912
+  # Time in seconds that the jailed process has to run.
+  REALTIME: 3
+  # Needs to be non-zero so that jailed code can use it as their temp directory.(1MiB in bytes)
+  FSIZE: 1048576
+  CPU: 1
+  PROXY: 0
+
+EDXAPP_VIRTUAL_UNIVERSITIES: []
+# Set the number of workers explicitly for lms and cms
+# Should be set to
+# EDXAPP_WORKERS:
+#   lms: <num workers>
+#   cms: <num workers>
+EDXAPP_WORKERS: !!null
+EDXAPP_ANALYTICS_DATA_TOKEN: ""
+EDXAPP_ANALYTICS_DATA_URL: ""
+# Dashboard URL, assumes that the insights role is installed locally
+EDXAPP_ANALYTICS_DASHBOARD_URL: "http://localhost:18110/courses"
+
+EDXAPP_REGISTRATION_EXTRA_FIELDS:
+  level_of_education: "optional"
+  gender: "optional"
+  year_of_birth: "optional"
+  mailing_address: "optional"
+  goals: "optional"
+  honor_code: "required"
+  city: "hidden"
+  country: "hidden"
+
+EDXAPP_CELERY_WORKERS:
+  - queue: low
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: default
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: high
+    service_variant: cms
+    concurrency: 1
+    monitor: True
+  - queue: low
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: default
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: high
+    service_variant: lms
+    concurrency: 1
+    monitor: True
+  - queue: high_mem
+    service_variant: lms
+    concurrency: 1
+    monitor: False
+    max_tasks_per_child: 1
+
+EDXAPP_DEFAULT_CACHE_VERSION: "1"
+EDXAPP_OAUTH_ENFORCE_SECURE: True
+
+# Directory for edxapp application configuration files
+EDXAPP_CFG_DIR: "{{ COMMON_CFG_DIR }}/edxapp"
+EDXAPP_DEPRECATED_ADVANCED_COMPONENT_TYPES: []
+
+# Video Pipeline Settings
+EDXAPP_VIDEO_UPLOAD_PIPELINE:
+  BUCKET: ''
+  ROOT_PATH: ''
+
+EDXAPP_CORS_ORIGIN_WHITELIST: []
+EDXAPP_CORS_ORIGIN_ALLOW_ALL: false
+EDXAPP_CROSS_DOMAIN_CSRF_COOKIE_DOMAIN: ""
+EDXAPP_CROSS_DOMAIN_CSRF_COOKIE_NAME: ""
+
+# Video Beacon Settings
+CDN_VIDEO_URLS: {}
+PERFORMANCE_GRAPHITE_URL: 'SetPerformanceGraphiteHostName'
+
+# E-Commerce Related Settings
+EDXAPP_ECOMMERCE_PUBLIC_URL_ROOT: "http://localhost:8002"
+EDXAPP_ECOMMERCE_API_URL: "http://localhost:8002/api/v2"
+EDXAPP_ECOMMERCE_API_SIGNING_KEY: 'SET-ME-PLEASE'
+
+# Mailchimp Settings
+EDXAPP_MAILCHIMP_NEW_USER_LIST_ID: null
+
+# Social Sharing Related Settings
+EDXAPP_SOCIAL_SHARING_SETTINGS:
+  CUSTOM_COURSE_URLS: false
+  DASHBOARD_FACEBOOK: false
+  CERTIFICATE_FACEBOOK: false
+  CERTIFICATE_TWITTER: false
+  DASHBOARD_TWITTER: false
+
+#To use AWS S3 as your backend, you need different kwargs:
+# EDXAPP_PROFILE_IMAGE_BACKEND_CONFIG:
+#   class: storages.backends.s3boto.S3BotoStorage
+#   options:
+#     location: /path/to/images
+#     bucket: mybucket
+#     custom_domain: mybucket.s3.amazonaws.com
+#     access_key: XXXAWS_ACCESS_KEYXXX
+#     secret_key: XXXAWS_SECRETY_KEYXXX
+#     headers:
+#       Cache-Control: max-age-{{ EDXAPP_PROFILE_IMAGE_MAX_AGE }}
+#NB: access_key and secret_key are unneccessary if you use IAM roles
+#NB2: custom_domain is REQUIRED. Otherwise, boto will generate a
+# temporary URL whenever asked for the URL of a specific file.
+EDXAPP_PROFILE_IMAGE_BACKEND:
+  class: storages.backends.overwrite.OverwriteStorage
+  options:
+    location: "{{ edxapp_media_dir }}/profile-images/"
+    base_url: "{{ EDXAPP_MEDIA_URL }}/profile-images/"
+
+EDXAPP_PROFILE_IMAGE_MAX_AGE: 31536000
+
+# used to salt hashed usernames for profile image filenames
+EDXAPP_PROFILE_IMAGE_SECRET_KEY: placeholder_secret_key
+
+# In bytes
+EDXAPP_PROFILE_IMAGE_MAX_BYTES: 1048576
+EDXAPP_PROFILE_IMAGE_MIN_BYTES: 100
+
+EDXAPP_PARSE_KEYS: {}
+
+# In a production environment when using separate clusters, you'll
+# want to route requests differently from the LMS (internal api) and
+# from JS (public API)
+EDXAPP_EDXNOTES_PUBLIC_API: http://localhost:18120/api/v1
+EDXAPP_EDXNOTES_INTERNAL_API: http://localhost:18120/api/v1
+
+EDXAPP_XBLOCK_SETTINGS: {}
+
+# Secret keys shared with credit providers.
+# Used to digitally sign credit requests (us --> provider)
+# and validate responses (provider --> us).
+# Each key in the dictionary is a credit provider ID, and
+# the value is the 32-character key.
+EDXAPP_CREDIT_PROVIDER_SECRET_KEYS: {}
+
+# Proctoring configuration (redirct URLs and keys shared between systems)
+EDXAPP_PROCTORING_SETTINGS: {}
+EDXAPP_PROCTORING_BACKEND_PROVIDER:
+  class: 'edx_proctoring.backends.null.NullBackendProvider'
+  options: {}
+
+# Comprehensive Theming
+EDXAPP_COMPREHENSIVE_THEME_DIR: ""
+
+# SAML KEYS
+EDXAPP_SOCIAL_AUTH_SAML_SP_PRIVATE_KEY: ''
+EDXAPP_SOCIAL_AUTH_SAML_SP_PUBLIC_CERT: ''
+
+# Session cookie setting
+# Only set this to true for client side profiling, never for production
+EDXAPP_SESSION_SAVE_EVERY_REQUEST: false
+
+EDXAPP_SESSION_COOKIE_SECURE: false
+
+#-------- Everything below this line is internal to the role ------------
+
+#Use YAML references (& and *) and hash merge <<: to factor out shared settings
+#see http://atechie.net/2009/07/merging-hashes-in-yaml-conf-files/
+
+edxapp_data_dir: "{{ COMMON_DATA_DIR }}/edxapp"
+edxapp_app_dir: "{{ COMMON_APP_DIR }}/edxapp"
+edxapp_log_dir: "{{ COMMON_LOG_DIR }}/edxapp"
+edxapp_venvs_dir: "{{ edxapp_app_dir }}/venvs"
+edxapp_venv_dir: "{{ edxapp_venvs_dir }}/edxapp"
+edxapp_venv_bin: "{{ edxapp_venv_dir }}/bin"
+edxapp_rbenv_dir: "{{ edxapp_app_dir }}"
+edxapp_rbenv_root: "{{ edxapp_rbenv_dir }}/.rbenv"
+edxapp_rbenv_shims: "{{ edxapp_rbenv_root }}/shims"
+edxapp_rbenv_bin: "{{ edxapp_rbenv_root }}/bin"
+edxapp_gem_root: "{{ edxapp_rbenv_dir }}/.gem"
+edxapp_gem_bin: "{{ edxapp_gem_root }}/bin"
+edxapp_node_bin: "{{ edxapp_code_dir }}/node_modules/.bin"
+edxapp_user: edxapp
+edxapp_deploy_path: "{{ edxapp_venv_bin }}:{{ edxapp_code_dir }}/bin:{{ edxapp_rbenv_bin }}:{{ edxapp_rbenv_shims }}:{{ edxapp_gem_bin }}:{{ edxapp_node_bin }}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+edxapp_staticfile_dir: "{{ edxapp_data_dir }}/staticfiles"
+edxapp_media_dir: "{{ edxapp_data_dir }}/media"
+edxapp_course_static_dir: "{{ edxapp_data_dir }}/course_static"
+edxapp_course_data_dir: "{{ edxapp_data_dir }}/data"
+edxapp_upload_dir: "{{ edxapp_data_dir }}/uploads"
+edxapp_theme_dir: "{{ edxapp_data_dir }}/themes"
+edxapp_git_identity: "{{ edxapp_app_dir }}/edxapp-git-identity"
+edxapp_git_ssh: "/tmp/edxapp_git_ssh.sh"
+
+# TODO: This can be removed once VPC-122 is resolved
+edxapp_legacy_course_data_dir: "{{ edxapp_app_dir }}/data"
+
+edxapp_workers: "{{ EDXAPP_CELERY_WORKERS }}"
+
+# setup for python codejail
+edxapp_sandbox_venv_dir:  '{{ edxapp_venvs_dir }}/edxapp-sandbox'
+edxapp_sandbox_user: 'sandbox'  # I think something about the codejail requires hardcoding this to sandbox:sandbox
+
+# apparmor command
+edxapp_aa_command: "{% if EDXAPP_SANDBOX_ENFORCE %}aa-enforce{% else %}aa-complain{% endif %}"
+
+# TODO: old style variable syntax is necessary
+# for lists and dictionaries
+edxapp_helper_scripts:
+    - edxapp-migrate
+    - edxapp-runserver
+    - edxapp-syncdb
+    - edxapp-update-assets
+    - edxapp-shell
+
+##### end edxapp defaults
+
+##### start edxlocal defaults
+edxlocal_database_users:
+  - {
+      db: "{{ ECOMMERCE_DEFAULT_DB_NAME | default(None) }}",
+      user: "{{ ECOMMERCE_DATABASES.default.USER | default(None) }}",
+      pass: "{{ ECOMMERCE_DATABASES.default.PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ INSIGHTS_DATABASE_NAME | default(None) }}",
+      user: "{{ INSIGHTS_DATABASES.default.USER | default(None) }}",
+      pass: "{{ INSIGHTS_DATABASES.default.PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ ORA_MYSQL_DB_NAME | default(None) }}",
+      user: "{{ ORA_MYSQL_USER | default(None) }}",
+      pass: "{{ ORA_MYSQL_PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ XQUEUE_MYSQL_DB_NAME | default(None) }}",
+      user: "{{ XQUEUE_MYSQL_USER | default(None) }}",
+      pass: "{{ XQUEUE_MYSQL_PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ EDXAPP_MYSQL_DB_NAME | default(None) }}",
+      user: "{{ EDXAPP_MYSQL_USER | default(None) }}",
+      pass: "{{ EDXAPP_MYSQL_PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ PROGRAMS_DEFAULT_DB_NAME | default(None) }}",
+      user: "{{ PROGRAMS_DATABASES.default.USER | default(None) }}",
+      pass: "{{ PROGRAMS_DATABASES.default.PASSWORD | default(None) }}"
+    }
+  - {
+      db: "{{ ANALYTICS_PIPELINE_OUTPUT_DATABASE_NAME | default(None) }}",
+      user: "{{ ANALYTICS_PIPELINE_OUTPUT_DATABASE.username }}",
+      pass: "{{ ANALYTICS_PIPELINE_OUTPUT_DATABASE.password }}"
+    }
+  - {
+      db: "{{ HIVE_METASTORE_DATABASE_NAME | default(None) }}",
+      user: "{{ HIVE_METASTORE_DATABASE.user | default(None) }}",
+      pass: "{{ HIVE_METASTORE_DATABASE.password | default(None) }}"
+    }
+
+##### end edxlocal defaults
+
+##### start nginx defaults
+
+NGINX_ENABLE_SSL: False
+NGINX_REDIRECT_TO_HTTPS: False
+
+#NGINX_SSL_CERTIFICATE: 'ssl-cert-snakeoil.pem'
+#NGINX_SSL_KEY: 'ssl-cert-snakeoil.key'
+
+#CMS_HOSTNAME: '~^((stage|prod)-)?studio.*'
+#ECOMMERCE_HOSTNAME: '~^((stage|prod)-)?ecommerce.*'
+#PROGRAMS_HOSTNAME: '~^((stage|prod)-)?programs.*'
+
+##### end nginx defaults
+
+
+##### start common defaults
+
+# Set global htpasswd credentials
+COMMON_ENABLE_BASIC_AUTH: False
+COMMON_HTPASSWD_USER: edx 
+COMMON_HTPASSWD_PASS: edx 
+
+
+# Turn on syncing logs on rotation for edx
+# application and tracking logs, must also
+# have the AWS role installed
+COMMON_AWS_SYNC: False
+COMMON_AWS_SYNC_BUCKET: "edx-{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}"
+COMMON_AWS_S3_SYNC_SCRIPT: "{{ COMMON_BIN_DIR }}/send-logs-to-s3"
+
+COMMON_ENVIRONMENT: 'default_env'
+COMMON_DEPLOYMENT: 'default_deployment'
+
+COMMON_SSH_PASSWORD_AUTH: "no"
+
+COMMON_MYSQL_READ_ONLY_USER: 'read_only'
+COMMON_MYSQL_READ_ONLY_PASS: 'password'
+COMMON_MYSQL_ADMIN_USER: 'admin'
+COMMON_MYSQL_ADMIN_PASS: 'password'
+COMMON_MYSQL_MIGRATE_USER: 'migrate'
+COMMON_MYSQL_MIGRATE_PASS: 'password'
+
+COMMON_MONGO_READ_ONLY_USER: 'read_only'
+COMMON_MONGO_READ_ONLY_PASS: !!null
+COMMON_ENABLE_DATADOG: False
+COMMON_ENABLE_NGINXTRA: False
+COMMON_ENABLE_SPLUNKFORWARDER: False
+COMMON_ENABLE_NEWRELIC: False
+
+##### end common defaults
+
+
