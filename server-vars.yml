@@ -1,51 +1,25 @@
 ---
-##### start edxapp defaults
+# vars organization
+##############################
+# 1. global Open edX settings
+# 2. Email settings
+# 3. API Keys, passwords, and socialmedia
+# 4. DB users/passwords
+# 5. Nginx and server resources
+##############################
+
+########## 1. global Open edX settings ##########
+
+COMMON_ENVIRONMENT: 'default_env'
+COMMON_DEPLOYMENT: 'default_deployment'
 
 EDXAPP_LMS_BASE: ""
 EDXAPP_PREVIEW_LMS_BASE: ""
 EDXAPP_CMS_BASE: ""
 
-EDXAPP_AWS_ACCESS_KEY_ID:  "None"
-EDXAPP_AWS_SECRET_ACCESS_KEY:  "None"
-
-EDXAPP_MONGO_PASSWORD: 'password'
-EDXAPP_MONGO_USER: 'edxapp'
-EDXAPP_MONGO_DB_NAME: 'edxapp'
-EDXAPP_MONGO_USE_SSL: False
-
-EDXAPP_MYSQL_DB_NAME: 'edxapp'
-EDXAPP_MYSQL_USER: 'edxapp001'
-EDXAPP_MYSQL_USER_ADMIN: 'root'
-EDXAPP_MYSQL_PASSWORD: 'password'
-EDXAPP_MYSQL_PASSWORD_READ_ONLY: 'password'
-EDXAPP_MYSQL_PASSWORD_ADMIN: 'password'
-
-EDXAPP_EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-EDXAPP_EMAIL_HOST: 'localhost'
-EDXAPP_EMAIL_PORT: 25
-EDXAPP_EMAIL_USE_TLS: False
-EDXAPP_EMAIL_HOST_USER: ''
-EDXAPP_EMAIL_HOST_PASSWORD: ''
-
-EDXAPP_COMMENTS_SERVICE_KEY:  'password'
-
-EDXAPP_EDXAPP_SECRET_KEY: "DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION"
-
-EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
-EDXAPP_YOUTUBE_API_KEY: "PUT_YOUR_API_KEY_HERE"
-EDXAPP_ZENDESK_USER: ""
-EDXAPP_ZENDESK_URL: ""
-EDXAPP_ZENDESK_API_KEY: ""
-EDXAPP_CELERY_USER: 'celery'
-EDXAPP_CELERY_PASSWORD: 'celery'
-EDXAPP_CELERY_BROKER_VHOST: ""
-
 EDXAPP_PLATFORM_NAME: 'Your Platform Name Here'
 EDXAPP_STUDIO_NAME: 'Studio'
 EDXAPP_STUDIO_SHORT_NAME: 'Studio'
-
-# Settings for enabling and configuring third party authorization
-EDXAPP_ENABLE_THIRD_PARTY_AUTH: false
 
 EDXAPP_FEATURES:
   AUTH_USE_OPENID_PROVIDER: true
@@ -71,37 +45,6 @@ EDXAPP_FEATURES:
   ENABLE_CREDIT_ELIGIBILITY: "{{ EDXAPP_ENABLE_CREDIT_ELIGIBILITY }}"
   ENABLE_SPECIAL_EXAMS: false
 
-# This needs to be set to localhost
-# if xqueue is run on the same server
-# as the lms (it's sent in the request)
-EDXAPP_SITE_NAME: 'localhost'
-EDXAPP_LMS_SITE_NAME: "{{ EDXAPP_SITE_NAME }}"
-EDXAPP_CMS_SITE_NAME: 'localhost'
-EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
-
-EDXAPP_LMS_NGINX_PORT: 18000
-EDXAPP_LMS_SSL_NGINX_PORT: 48000
-EDXAPP_LMS_PREVIEW_NGINX_PORT: 18020
-EDXAPP_CMS_NGINX_PORT: 18010
-EDXAPP_CMS_SSL_NGINX_PORT: 48010
-
-EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
-EDXAPP_CONTACT_EMAIL: 'info@example.com'
-EDXAPP_BUGS_EMAIL: 'bugs@example.com'
-EDXAPP_DEFAULT_FROM_EMAIL: 'registration@example.com'
-EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@example.com'
-EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@example.com'
-EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@example.com'
-EDXAPP_BULK_EMAIL_LOG_SENT_EMAILS: false
-EDXAPP_UNIVERSITY_EMAIL: 'university@example.com'
-EDXAPP_PRESS_EMAIL: 'press@example.com'
-
-EDXAPP_PLATFORM_TWITTER_ACCOUNT: '@YourPlatformTwitterAccount'
-EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/YourPlatformFacebookAccount'
-EDXAPP_FACEBOOK_APP_ID: "FACEBOOK_APP_ID"
-EDXAPP_FACEBOOK_APP_SECRET: "FACEBOOK_APP_SECRET"
-EDXAPP_FACEBOOK_API_VERSION: "v2.1"
-
 EDXAPP_ENABLE_MKTG_SITE: false
 EDXAPP_MKTG_URL_LINK_MAP: {}
 EDXAPP_MKTG_URLS: {}
@@ -115,7 +58,8 @@ EDXAPP_GRADE_ROOT_PATH: '/tmp/edx-s3/grades'
 EDXAPP_USE_GIT_IDENTITY: false
 # Paste the contents of the git identity
 # into this var
-EDXAPP_GIT_IDENTITY: !!null
+#EDXAPP_GIT_IDENTITY: !!null
+
 
 # List of additional python packages that should be installed into the
 # edxapp virtual environment.
@@ -127,14 +71,6 @@ EDXAPP_GIT_IDENTITY: !!null
 #     version: 1.0.1
 #   - name: git+https://git.myproject.org/MyProject#egg=MyProject
 EDXAPP_EXTRA_REQUIREMENTS: []
-
-EDXAPP_OPTIMIZELY_PROJECT_ID: "None"
-EDXAPP_TRACKING_SEGMENTIO_WEBHOOK_SECRET: ""
-EDXAPP_CMS_SEGMENT_KEY: "None"
-EDXAPP_LMS_SEGMENT_KEY: "None"
-EDXAPP_EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST: []
-
-EDXAPP_EDX_API_KEY: "PUT_YOUR_API_KEY_HERE"
 
 # If using microsites this should point to the microsite repo
 EDXAPP_MICROSITE_ROOT_DIR: "{{ edxapp_app_dir }}/edx-microsite"
@@ -156,6 +92,125 @@ EDXAPP_REGISTRATION_EXTRA_FIELDS:
   honor_code: "required"
   city: "hidden"
   country: "hidden"
+
+# Comprehensive Theming
+EDXAPP_COMPREHENSIVE_THEME_DIR: ""
+
+########## 2. start Email settings ##########
+EDXAPP_EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+EDXAPP_EMAIL_HOST: 'localhost'
+EDXAPP_EMAIL_PORT: 25
+EDXAPP_EMAIL_USE_TLS: False
+EDXAPP_EMAIL_HOST_USER: ''
+EDXAPP_EMAIL_HOST_PASSWORD: ''
+
+EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
+EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
+EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
+EDXAPP_CONTACT_EMAIL: 'info@example.com'
+EDXAPP_BUGS_EMAIL: 'bugs@example.com'
+EDXAPP_DEFAULT_FROM_EMAIL: 'registration@example.com'
+EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@example.com'
+EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@example.com'
+EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@example.com'
+EDXAPP_BULK_EMAIL_LOG_SENT_EMAILS: false
+EDXAPP_UNIVERSITY_EMAIL: 'university@example.com'
+EDXAPP_PRESS_EMAIL: 'press@example.com'
+
+########## end email settings ##########
+
+########## 3. start API Keys, passwords, and socialmedia ##########
+
+EDXAPP_AWS_ACCESS_KEY_ID:  "None"
+EDXAPP_AWS_SECRET_ACCESS_KEY:  "None"
+
+EDXAPP_COMMENTS_SERVICE_KEY:  'password'
+
+EDXAPP_EDXAPP_SECRET_KEY: "DUMMY KEY CHANGE BEFORE GOING TO PRODUCTION"
+
+EDXAPP_YOUTUBE_API_KEY: "PUT_YOUR_API_KEY_HERE"
+
+EDXAPP_ZENDESK_USER: ""
+EDXAPP_ZENDESK_URL: ""
+EDXAPP_ZENDESK_API_KEY: ""
+EDXAPP_CELERY_USER: 'celery'
+EDXAPP_CELERY_PASSWORD: 'celery'
+EDXAPP_CELERY_BROKER_VHOST: ""
+
+EDXAPP_OPTIMIZELY_PROJECT_ID: "None"
+EDXAPP_TRACKING_SEGMENTIO_WEBHOOK_SECRET: ""
+EDXAPP_CMS_SEGMENT_KEY: "None"
+EDXAPP_LMS_SEGMENT_KEY: "None"
+EDXAPP_EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST: []
+
+EDXAPP_EDX_API_KEY: "PUT_YOUR_API_KEY_HERE"
+# used to salt hashed usernames for profile image filenames
+EDXAPP_PROFILE_IMAGE_SECRET_KEY: placeholder_secret_key
+
+# SAML KEYS
+EDXAPP_SOCIAL_AUTH_SAML_SP_PRIVATE_KEY: ''
+EDXAPP_SOCIAL_AUTH_SAML_SP_PUBLIC_CERT: ''
+
+EDXAPP_PLATFORM_TWITTER_ACCOUNT: '@YourPlatformTwitterAccount'
+EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/YourPlatformFacebookAccount'
+EDXAPP_FACEBOOK_APP_ID: "FACEBOOK_APP_ID"
+EDXAPP_FACEBOOK_APP_SECRET: "FACEBOOK_APP_SECRET"
+EDXAPP_FACEBOOK_API_VERSION: "v2.1"
+
+########## end API Keys, passwords, and socialmedia ##########
+
+########## 4. start DB users/passwords ##########
+
+COMMON_MYSQL_READ_ONLY_USER: 'read_only'
+COMMON_MYSQL_READ_ONLY_PASS: 'password'
+COMMON_MYSQL_ADMIN_USER: 'admin'
+COMMON_MYSQL_ADMIN_PASS: 'password'
+COMMON_MYSQL_MIGRATE_USER: 'migrate'
+COMMON_MYSQL_MIGRATE_PASS: 'password'
+
+COMMON_MONGO_READ_ONLY_USER: 'read_only'
+COMMON_MONGO_READ_ONLY_PASS: !!null
+COMMON_ENABLE_DATADOG: False
+COMMON_ENABLE_NGINXTRA: False
+COMMON_ENABLE_SPLUNKFORWARDER: False
+COMMON_ENABLE_NEWRELIC: False
+
+EDXAPP_MONGO_PASSWORD: 'password'
+EDXAPP_MONGO_USER: 'edxapp'
+EDXAPP_MONGO_DB_NAME: 'edxapp'
+EDXAPP_MONGO_USE_SSL: False
+
+EDXAPP_MYSQL_DB_NAME: 'edxapp'
+EDXAPP_MYSQL_USER: 'edxapp001'
+EDXAPP_MYSQL_USER_ADMIN: 'root'
+EDXAPP_MYSQL_PASSWORD: 'password'
+EDXAPP_MYSQL_PASSWORD_READ_ONLY: 'password'
+EDXAPP_MYSQL_PASSWORD_ADMIN: 'password'
+
+
+########## end DB users/passwords ##########
+
+########## 5. start Nginx and server resources ##########
+
+EDXAPP_LMS_NGINX_PORT: 18000
+EDXAPP_LMS_SSL_NGINX_PORT: 48000
+EDXAPP_LMS_PREVIEW_NGINX_PORT: 18020
+EDXAPP_CMS_NGINX_PORT: 18010
+EDXAPP_CMS_SSL_NGINX_PORT: 48010
+
+NGINX_ENABLE_SSL: False
+#NGINX_REDIRECT_TO_HTTPS: False
+#NGINX_SSL_CERTIFICATE: 'ssl-cert-snakeoil.pem'
+#NGINX_SSL_KEY: 'ssl-cert-snakeoil.key'
+
+#CMS_HOSTNAME: '~^((stage|prod)-)?studio.*'
+#ECOMMERCE_HOSTNAME: '~^((stage|prod)-)?ecommerce.*'
+#PROGRAMS_HOSTNAME: '~^((stage|prod)-)?programs.*'
+
+# Set global htpasswd credentials
+COMMON_ENABLE_BASIC_AUTH: False
+#COMMON_HTPASSWD_USER: edx 
+#COMMON_HTPASSWD_PASS: edx 
 
 EDXAPP_WORKERS: 
   lms: 1
@@ -190,74 +245,5 @@ EDXAPP_CELERY_WORKERS:
     concurrency: 1
     monitor: False
     max_tasks_per_child: 1
-
-# used to salt hashed usernames for profile image filenames
-EDXAPP_PROFILE_IMAGE_SECRET_KEY: placeholder_secret_key
-
-# Comprehensive Theming
-EDXAPP_COMPREHENSIVE_THEME_DIR: ""
-
-# SAML KEYS
-EDXAPP_SOCIAL_AUTH_SAML_SP_PRIVATE_KEY: ''
-EDXAPP_SOCIAL_AUTH_SAML_SP_PUBLIC_CERT: ''
-
-# Session cookie setting
-# Only set this to true for client side profiling, never for production
-EDXAPP_SESSION_SAVE_EVERY_REQUEST: false
-
-EDXAPP_SESSION_COOKIE_SECURE: false
-
-##### end edxapp defaults
-
-##### start nginx defaults
-
-NGINX_ENABLE_SSL: False
-NGINX_REDIRECT_TO_HTTPS: False
-
-#NGINX_SSL_CERTIFICATE: 'ssl-cert-snakeoil.pem'
-#NGINX_SSL_KEY: 'ssl-cert-snakeoil.key'
-
-#CMS_HOSTNAME: '~^((stage|prod)-)?studio.*'
-#ECOMMERCE_HOSTNAME: '~^((stage|prod)-)?ecommerce.*'
-#PROGRAMS_HOSTNAME: '~^((stage|prod)-)?programs.*'
-
-##### end nginx defaults
-
-
-##### start common defaults
-
-# Set global htpasswd credentials
-COMMON_ENABLE_BASIC_AUTH: False
-#COMMON_HTPASSWD_USER: edx 
-#COMMON_HTPASSWD_PASS: edx 
-
-
-# Turn on syncing logs on rotation for edx
-# application and tracking logs, must also
-# have the AWS role installed
-COMMON_AWS_SYNC: False
-COMMON_AWS_SYNC_BUCKET: "edx-{{ COMMON_ENVIRONMENT }}-{{ COMMON_DEPLOYMENT }}"
-COMMON_AWS_S3_SYNC_SCRIPT: "{{ COMMON_BIN_DIR }}/send-logs-to-s3"
-
-COMMON_ENVIRONMENT: 'default_env'
-COMMON_DEPLOYMENT: 'default_deployment'
-
-COMMON_SSH_PASSWORD_AUTH: "no"
-
-COMMON_MYSQL_READ_ONLY_USER: 'read_only'
-COMMON_MYSQL_READ_ONLY_PASS: 'password'
-COMMON_MYSQL_ADMIN_USER: 'admin'
-COMMON_MYSQL_ADMIN_PASS: 'password'
-COMMON_MYSQL_MIGRATE_USER: 'migrate'
-COMMON_MYSQL_MIGRATE_PASS: 'password'
-
-COMMON_MONGO_READ_ONLY_USER: 'read_only'
-COMMON_MONGO_READ_ONLY_PASS: !!null
-COMMON_ENABLE_DATADOG: False
-COMMON_ENABLE_NGINXTRA: False
-COMMON_ENABLE_SPLUNKFORWARDER: False
-COMMON_ENABLE_NEWRELIC: False
-
-##### end common defaults
-
+########## end Nginx and server resources ##########
 
