@@ -246,4 +246,3 @@ EDXAPP_CELERY_WORKERS:
     monitor: False
     max_tasks_per_child: 1
 ########## end Nginx and server resources ##########
-
