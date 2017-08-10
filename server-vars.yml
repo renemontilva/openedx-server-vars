@@ -17,7 +17,7 @@ EDXAPP_LMS_BASE: ""
 EDXAPP_PREVIEW_LMS_BASE: ""
 EDXAPP_CMS_BASE: ""
 
-EDXAPP_PLATFORM_NAME: 'Your Platform Name Here'
+EDXAPP_PLATFORM_NAME: 'LongoMatch University'
 EDXAPP_STUDIO_NAME: 'Studio'
 EDXAPP_STUDIO_SHORT_NAME: 'Studio'
 
@@ -104,18 +104,18 @@ EDXAPP_EMAIL_USE_TLS: False
 EDXAPP_EMAIL_HOST_USER: ''
 EDXAPP_EMAIL_HOST_PASSWORD: ''
 
-EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@example.com"
+EDXAPP_PAYMENT_SUPPORT_EMAIL: "billing@testing.com"
 EDXAPP_FEEDBACK_SUBMISSION_EMAIL: ""
-EDXAPP_TECH_SUPPORT_EMAIL: 'technical@example.com'
-EDXAPP_CONTACT_EMAIL: 'info@example.com'
-EDXAPP_BUGS_EMAIL: 'bugs@example.com'
-EDXAPP_DEFAULT_FROM_EMAIL: 'registration@example.com'
-EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@example.com'
-EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@example.com'
-EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@example.com'
+EDXAPP_TECH_SUPPORT_EMAIL: 'technical@testing.com'
+EDXAPP_CONTACT_EMAIL: 'info@testing.com'
+EDXAPP_BUGS_EMAIL: 'bugs@testing.com'
+EDXAPP_DEFAULT_FROM_EMAIL: 'registration@testing.com'
+EDXAPP_DEFAULT_FEEDBACK_EMAIL: 'feedback@testing.com'
+EDXAPP_DEFAULT_SERVER_EMAIL: 'devops@testing.com'
+EDXAPP_BULK_EMAIL_DEFAULT_FROM_EMAIL: 'no-reply@testing.com'
 EDXAPP_BULK_EMAIL_LOG_SENT_EMAILS: false
-EDXAPP_UNIVERSITY_EMAIL: 'university@example.com'
-EDXAPP_PRESS_EMAIL: 'press@example.com'
+EDXAPP_UNIVERSITY_EMAIL: 'university@testing.com'
+EDXAPP_PRESS_EMAIL: 'press@testing.com'
 
 ########## end email settings ##########
 
@@ -151,8 +151,8 @@ EDXAPP_PROFILE_IMAGE_SECRET_KEY: placeholder_secret_key
 EDXAPP_SOCIAL_AUTH_SAML_SP_PRIVATE_KEY: ''
 EDXAPP_SOCIAL_AUTH_SAML_SP_PUBLIC_CERT: ''
 
-EDXAPP_PLATFORM_TWITTER_ACCOUNT: '@YourPlatformTwitterAccount'
-EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/YourPlatformFacebookAccount'
+EDXAPP_PLATFORM_TWITTER_ACCOUNT: '@MyTestingUniversity'
+EDXAPP_PLATFORM_FACEBOOK_ACCOUNT: 'http://www.facebook.com/MyTestingUniversity'
 EDXAPP_FACEBOOK_APP_ID: "FACEBOOK_APP_ID"
 EDXAPP_FACEBOOK_APP_SECRET: "FACEBOOK_APP_SECRET"
 EDXAPP_FACEBOOK_API_VERSION: "v2.1"
